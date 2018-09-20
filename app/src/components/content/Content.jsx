@@ -96,9 +96,9 @@ class Content extends Component {
                 
                 <form onSubmit={ this.enviarTexto }>
                     <label>
-                        <input type="text" name="name" onChange={ this.updateTexto } />
+                        <Texto type="text" name="name" onChange={ this.updateTexto } />
                     </label>
-                    <button type="submit"> Enviar </button>
+                    <Button type="submit"> Enviar </Button>
                 </form>
 
                 <Mensaje>

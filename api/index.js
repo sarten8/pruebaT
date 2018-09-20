@@ -17,8 +17,8 @@ app.use(bodyParser.json())
 // })
 
 app.get('/mensaje/', (req, res) => {
-    let data = req.query;
     console.log(data)
+    let data = req.query;
     res.json(data)
 })
 
