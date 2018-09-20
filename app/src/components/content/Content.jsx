@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import store from '../../store'
 
 const Titulo = styled.h1`
     color: #FFF;
@@ -65,6 +66,13 @@ class Content extends Component {
         }
         this.updateTexto = this.updateTexto.bind(this);
         this.enviarTexto = this.enviarTexto.bind(this);
+        this.addMessage = this.addMessage.bind(this);
+
+        store.subscribe( () => {
+            this.setState({
+                mensaje: store.getState().mensaje
+            })
+        })
     }
 
     enviarTexto(e) {
@@ -72,9 +80,9 @@ class Content extends Component {
 
         axios.get(`localhost:3002/mensaje/?msg=${ this.state.texto }`)
         .then(res => {
-            console.log(res)
+            this.addMessage(res.msg)
         })
-        .catch(err => this.setState({ mensaje: `ERROR: ${ err }` }))
+        .catch(err => this.addMessage(`ERROR: ${ err }`))
     }
 
     updateTexto(e){
@@ -100,6 +108,13 @@ class Content extends Component {
                 </Mensaje>
             </Contenedor>
         )
+    }
+
+    addMessage(mensaje) {
+        store.dispatch({
+            type: "ADD_MESSAGE",
+            mensaje
+        })
     }
 }
 

@@ -1,9 +1,11 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const app = express()
 const port = process.env.port || 3002
 
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
@@ -14,10 +16,10 @@ app.use(bodyParser.json())
 //     res.send({ respuesta: msg });
 // })
 
-app.get("/mensaje/", (req, res) => {
+app.get('/mensaje/', (req, res) => {
     let data = req.query;
     console.log(data)
-    res.send( data )
+    res.json(data)
 })
 
 
