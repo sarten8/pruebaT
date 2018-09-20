@@ -1,15 +1,23 @@
 const express = require('express')
+const bodyParser = require('body-parser')
 
 const app = express()
 const port = process.env.port || 3002
 
-app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 
-app.post('/mensaje', (req, res) => {
-    const { msg } = req.body;
-    console.log(req.body)
-    res.json({ respuesta: msg });
+// app.post('/mensaje', (req, res) => {
+//     const { msg } = req.body;
+//     console.log(msg)
+//     res.send({ respuesta: msg });
+// })
+
+app.get("/mensaje/", (req, res) => {
+    let data = req.query;
+    console.log(data)
+    res.send( data )
 })
 
 
