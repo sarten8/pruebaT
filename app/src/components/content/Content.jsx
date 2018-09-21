@@ -7,13 +7,15 @@ const Titulo = styled.h1`
     color: #FFF;
 `
 
-const Mensaje = styled.div`
-  text-align: center;
-  margin-top: 2%;
-  background: #555;
+const Mensaje = styled.h3`
+  text-align: left;
+  margin-top: 5%;
+  padding-left: 2%;
+  background: #3c5779;
   color: #FEE;
-  font-size: 14px;
-  width: 590px;
+  font-size: 19px;
+  width: 100%;
+  height: 30px;
 `
 
 const Contenedor = styled.div`
@@ -78,9 +80,12 @@ class Content extends Component {
     enviarTexto(e) {
         e.preventDefault();
 
-        axios.get(`localhost:3002/mensaje/?msg=${ this.state.texto }`)
+        axios.post('http://localhost:3002/mensaje/', {
+            msg: this.state.texto
+        })
         .then(res => {
-            this.addMessage(res.msg)
+            console.log(res.data)
+            this.addMessage(res.data)
         })
         .catch(err => this.addMessage(`ERROR: ${ err }`))
     }
@@ -101,11 +106,7 @@ class Content extends Component {
                     <Button type="submit"> Enviar </Button>
                 </form>
 
-                <Mensaje>
-                    {
-                        this.state.mensaje
-                    }
-                </Mensaje>
+                <Mensaje><span>{this.state.mensaje}</span></Mensaje>
             </Contenedor>
         )
     }
